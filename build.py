@@ -278,6 +278,10 @@ if __name__ == "__main__":
     compile_config["executable_name"]      = exe_name;
     compile_config["obj_file_list"]        = []; # Will be filled in by compile_src_file
 
+    # Create build dir
+    if not os.path.isdir(build_dir):
+        os.mkdir(build_dir);
+
     # 4. Compile source files
     compile_src_files(compile_config);
 
