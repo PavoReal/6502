@@ -1,37 +1,22 @@
 #include <stdio.h>
-#include <stdint.h>
 
-typedef uint8_t  u8;
-typedef uint16_t u16;
-typedef uint32_t u32;
+#include "6502/cpu.h"
+#include "6502/compiler.h"
 
-typedef int8_t  s8;
-typedef int16_t s16;
-typedef int32_t s32;
+using namespace cpu_6502;
 
-struct __attribute__((packed)) cpu_6502_t
+u8
+read(u16 addr)
 {
-    union
-    {
-        struct 
-        {
-            u8 A;
-            u8 X;
-            u8 Y;
-            u16 PC;
-            u16 S: 9;
-        } regs;
-    };
-};
+    fprintf(stdout, "read: addr = %04x\n", addr);
+    return 0;
+}
 
-void 
-SetInitialCPUState(cpu_6502_t &cpu)
+void
+write(u16 addr, u8 data)
 {
-    cpu.regs.A = 0;
-    cpu.regs.X = 0;
-    cpu.regs.Y = 0;
-    cpu.regs.PC = 0;
-    cpu.regs.S = 0;
+    fprintf(stdout, "write: addr = %04x, data = %02x\n", addr, data);
+    return;
 }
 
 int 
@@ -39,8 +24,7 @@ main(void)
 {
     printf("Hello World!\n");
 
-    cpu_6502_t cpu = {};
-    SetInitialCPUState(cpu);
+    cpu_6502_t cpu = cpu_6502_t(&read, &write);
 
     return 0;
 }
