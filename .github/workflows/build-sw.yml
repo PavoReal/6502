@@ -24,9 +24,13 @@ jobs:
           # Install Cygwin packages
           # cygwin: # optional, default is 0
           # Set up cc/clang/c++/clang++ executables
-          clang++: 1
+          cc: 1
           # On Cygwin, replace executable symlinks with hardlinks
           hardlinks: 1 # optional, default is 0
       - name: Build
         run: python build.py
-      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: sw-build
+          path: ./sw/build/6502
