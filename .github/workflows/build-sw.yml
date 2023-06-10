@@ -1,0 +1,35 @@
+name: Build SW
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Clang
+        uses: egor-tensin/setup-clang@v1
+        with: 
+          version: latest # optional, default is latest
+          # Target platform
+          platform: x64 # optional, default is x64
+          # Install Cygwin packages
+          # cygwin: # optional, default is 0
+          # Set up cc/clang/c++/clang++ executables
+          clang++: 1
+          # On Cygwin, replace executable symlinks with hardlinks
+          hardlinks: 1 # optional, default is 0
+      - name: Build
+        run: python build.py
+      
