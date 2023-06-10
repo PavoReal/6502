@@ -33,4 +33,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sw-build
-          path: ./sw/build/6502
+          path: |
+            ./sw/build/6502
+            ./sw/src/**/*
+            ./build.py
+            ./LICENSE
+            ./README.md
